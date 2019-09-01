@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+duration=$1
+beepCount=$2
+if [[ $beepCount -eq "" ]]; then
+  beepCount=10
+fi
+if [[ $duration -eq "" ]]; then
+  duration=1500
+fi
+
+echo {1..5}
+sleep ${duration}
+for (( i=0; i<=${beepCount}; i++ )); do
+  tput bel
+  echo $i
+  sleep 0.25
+done
+
