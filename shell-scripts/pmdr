@@ -9,7 +9,7 @@ if [[ $duration -eq "" ]]; then
   duration=1500
 fi
 
-echo {1..5}
+echo duration: ${duration}, beeps: ${beepCount}
 sleep ${duration}
 for (( i=0; i<=${beepCount}; i++ )); do
   tput bel
