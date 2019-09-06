@@ -1,0 +1,16 @@
+
+1. [:alphanum:]
+2. [:alpha:]
+3. [:digit:]
+4. [:blank:]
+5. [:space:]
+6. [:lower:]
+7. [:upper:]
+8. [:print:]
+9. [:cntrl:]
+10. [:graph:]
+11. [:xdigit:]
+12. [:ascii:]
+13. [:punct:]
+14. [:word:]
+

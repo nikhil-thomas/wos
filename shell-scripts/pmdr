@@ -1,16 +1,28 @@
 #!/usr/bin/env bash
 
+function printDuration() {
+  local secs=$1 
+  local mins=$(( secs / 60 ))
+  secs=$(( secs % 60 ))
+  echo ${mins}mins, ${secs}secs
+}
+
 duration=$1
 beepCount=$2
 if [[ $beepCount -eq "" ]]; then
-  beepCount=10
+  beepCount=100
 fi
 if [[ $duration -eq "" ]]; then
   duration=1500
 fi
 
-echo duration: ${duration}, beeps: ${beepCount}
-sleep ${duration}
+echo duration: $(printDuration ${duration}), beeps: ${beepCount}
+
+while (( $duration > 0 )); do
+  printDuration $duration
+  sleep 1
+  duration=$(( duration - 1 ))
+done
 for (( i=0; i<=${beepCount}; i++ )); do
   tput bel
   echo $i
