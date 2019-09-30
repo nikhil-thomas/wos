@@ -9,13 +9,17 @@ function printDuration() {
 
 duration=$1
 beepCount=$2
+switchToWindow=$3
+
 if [[ $beepCount -eq "" ]]; then
   beepCount=100
 fi
 if [[ $duration -eq "" ]]; then
   duration=1500
 fi
-
+if [[ $switchToWindow -eq "" ]]; then
+  switchToWindow=4
+fi
 echo duration: $(printDuration ${duration}), beeps: ${beepCount}
 
 while (( $duration > 0 )); do
@@ -23,6 +27,7 @@ while (( $duration > 0 )); do
   sleep 1
   duration=$(( duration - 1 ))
 done
+wmctrl -s $switchToWindow
 for (( i=0; i<=${beepCount}; i++ )); do
   tput bel
   echo $i
