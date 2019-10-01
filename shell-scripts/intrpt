@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+hrs=$1
+mins=$2
+
+hrs=${hrs:-0}
+mins=${mins:-0}
+
+pmdr $(hm2s $hrs $mins)
+
