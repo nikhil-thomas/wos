@@ -12,7 +12,7 @@ beepCount=$2
 switchToWindow=$3
 
 if [[ $beepCount -eq "" ]]; then
-  beepCount=25
+  beepCount=240
 fi
 if [[ $duration -eq "" ]]; then
   duration=1500
@@ -29,8 +29,8 @@ while (( $duration > 0 )); do
 done
 for (( i=0; i<=${beepCount}; i++ )); do
   tput bel
+  sleep 0.225
   echo $i
-  sleep 0.25
 done
 wmctrl -s $switchToWindow
 
