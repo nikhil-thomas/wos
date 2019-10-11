@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+function beep() {
+  for (( i=0; i<80; i++ )); do
+    tput bel
+    sleep 0.225
+  done
+ switchToWindow=4
+}
+
+while true; do
+  date  
+  if [[ $(egrep '(00|30)$' <(date | cut -d' ' -f 5 | cut -d ':' -f 2)) ]]; then
+    beep&
+  fi
+  sleep 1
+done
+
+
+
