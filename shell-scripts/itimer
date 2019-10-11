@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+hrs=$1
+mins=$2
+secs=$3
+cycles=$4
+beeps=$5
+
+hrs=${hrs:-0}
+mins=${mins:-0}
+secs=${secs:-0}
+cycles=${cycles:-1}
+
+function itimer() {
+ local interval=$1
+ for (( i=0;i<$cycles;i++ )); do
+    echo cycle=$(( i + 1 ))/$cycles
+    #for (( j=$interval;j>0;j-- ));do
+    #  sleep 1
+    #  echo ${j}s
+    # done
+    pmdr $1 $beeps
+ done 
+}
+
+itimer $(( $(hm2s $hrs $mins) + secs ))
+
