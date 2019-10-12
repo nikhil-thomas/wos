@@ -1,19 +1,37 @@
 #!/usr/bin/env bash
 
+switchToWindow=4
+
 function beep() {
   for (( i=0; i<80; i++ )); do
     tput bel
     sleep 0.225
   done
- switchToWindow=4
+  wmctrl -s $switchToWindow
 }
 
+echo "###############################"
+echo "#### Starting intrpt timer ####"
+echo "###############################"
+prev=""
 while true; do
-  date  
-  if [[ $(egrep '(00|30)$' <(date | cut -d' ' -f 5 | cut -d ':' -f 2)) ]]; then
-    beep&
-  fi
+
   sleep 1
+  date  
+
+  timeMin=$(date | cut -d' ' -f 5 | cut -d ':' -f 2)
+  # echo $timeMin
+  # timeMin=${timeMin:0:1}
+  if [[ $timeMin = $prev ]]; then
+    # echo continue
+    continue
+  fi
+  if [[ $(egrep '(00|25|32|55)$' <(echo $timeMin)) ]]; then
+    beep
+    prev=$timeMin
+    # echo new prev $prev
+    # echo beep beep beep
+  fi
 done
 
 
