@@ -13,26 +13,17 @@ function beep() {
 echo "###############################"
 echo "#### Starting intrpt timer ####"
 echo "###############################"
-prev=""
+
 while true; do
 
   sleep 1
   date  
 
-  timeMin=$(date | cut -d' ' -f 5 | cut -d ':' -f 2)
-  # echo $timeMin
-  # timeMin=${timeMin:0:1}
-  if [[ $timeMin = $prev ]]; then
-    # echo continue
-    continue
-  fi
-  if [[ $(egrep '(00|25|32|55)$' <(echo $timeMin)) ]]; then
-    beep
-    prev=$timeMin
-    # echo new prev $prev
-    # echo beep beep beep
+  timeMin=$(date | cut -d' ' -f 5)
+  timeMin=${timeMin:3:5}
+  echo $timeMin
+  if [[ $(egrep '(00:00|25:00|30:00|55:00)$' <(echo $timeMin)) ]]; then
+    beep&
   fi
 done
-
-
 
