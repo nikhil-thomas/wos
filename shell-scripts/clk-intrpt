@@ -3,26 +3,29 @@
 switchToWindow=4
 
 function beep() {
-  for (( i=0; i<80; i++ )); do
+  for (( i=0; i<20; i++ )); do
     tput bel
     sleep 0.225
   done
-  wmctrl -s $switchToWindow
+  #wmctrl -s $switchToWindow
 }
 
+clear
 echo "###############################"
 echo "#### Starting intrpt timer ####"
 echo "###############################"
 
 while true; do
 
-  sleep 1
-  date  
-
-  timeMin=$(date | cut -d' ' -f 5)
-  timeMin=${timeMin:3:5}
-  echo $timeMin
-  if [[ $(egrep '(00:00|25:00|30:00|55:00)$' <(echo $timeMin)) ]]; then
+  sleep 0.5
+  time_val=$(date)
+  printf "\\r$time_val"
+  time_min=$(echo $time_val | cut -d' ' -f 5)
+  time_min=${time_min:3:5}
+  #echo $time_min
+  if [[ $(egrep '(00:00|25:00|30:00|55:00)$' <(echo $time_min)) ]]; then
+  #if [[ $(egrep '(25:00|55:00)$' <(echo $time_min)) ]]; then
+    echo "intrpt"
     beep&
   fi
 done
