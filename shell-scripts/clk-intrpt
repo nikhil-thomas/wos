@@ -19,13 +19,16 @@ while true; do
 
   sleep 0.5
   time_val=$(date)
-  printf "\\r$time_val"
+  #printf "\\r$time_val"
+  echo -ne "\\r$time_val"
+
   time_min=$(echo $time_val | cut -d' ' -f 5)
   time_min=${time_min:3:5}
   #echo $time_min
   if [[ $(egrep '(00:00|25:00|30:00|55:00)$' <(echo $time_min)) ]]; then
   #if [[ $(egrep '(25:00|55:00)$' <(echo $time_min)) ]]; then
-    echo "intrpt"
+    echo ""
+    echo "-------------------------------"
     beep&
   fi
 done

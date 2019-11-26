@@ -1,0 +1,43 @@
+#! /usr/bin/env bash
+
+session=wos
+
+wmctrl -s 5
+/home/ncoder/.Nozbe/Nozbe > /dev/null 2>&1 &
+sleep 3
+
+wmctrl -s 11
+google-chrome --app=https://my.1password.com/home > /dev/null 2>&1 &
+google-chrome --app=https://open.spotify.com/ > /dev/null 2>&1 &
+sleep 3
+
+wmctrl -s 10
+google-chrome --app=https://calendar.google.com/calendar/r > /dev/null 2>&1 &
+sleep 3
+
+wmctrl -s 4
+google-chrome --app=https://app.ganttpro.com/#/list > /dev/null 2>&1 &
+sleep 3
+
+wmctrl -s 3
+google-chrome --app=https://www.evernote.com/Home.action?login=true#b=eee50092-a06a-4128-bea7-e2926ed7e176&ses=4&sh=1&sds=5& > /dev/null 2>&1 &
+sleep 3
+
+wmctrl -s 0
+slack > /dev/null 2>&1 &
+sleep 3
+
+wmctrl -s 1
+google-chrome https://github.com/ > /dev/null 2>&1 &
+sleep 3
+
+wmctrl -s 9
+klavaro > /dev/null 2>&1 &
+sleep 3
+wmctrl -s 5
+
+tmux start-server
+tmux new-session -d -s $session -c ~ -n intrpt
+tmux new-window -c $GOPATH/src/github.com/openshift/ -n openshift
+
+tmux attach-session -t $session
