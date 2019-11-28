@@ -41,7 +41,7 @@ sleep 3
 wmctrl -s 5
 
 tmux start-server
-tmux new-session -d -s $session -c ~ -n intrpt
+tmux new-session -d -s $session -c ~ -n SIGINT
 tmux new-window -c $GOPATH/src/github.com/openshift/ -n openshift
 
 tmux attach-session -t $session
