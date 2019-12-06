@@ -25,11 +25,20 @@ while true; do
   time_min=$(echo $time_val | cut -d' ' -f 5)
   time_min=${time_min:3:5}
   #echo $time_min
-  if [[ $(egrep '(00:00|25:00|30:00|55:00)$' <(echo $time_min)) ]]; then
+  if [[ $(egrep '(00:00|30:00)$' <(echo $time_min)) ]]; then
   #if [[ $(egrep '(25:00|55:00)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
     beep&
+  fi
+  if [[ $(egrep '(25:00|55:00)$' <(echo $time_min)) ]]; then
+  #if [[ $(egrep '(25:00|55:00)$' <(echo $time_min)) ]]; then
+    echo ""
+    echo "-------------------------------"
+    beep&
+    wmctrl -s 2
+    gedit /home/ncoder/.local/share/notes@maestroschan.fr/0_text &
+    echo $pid
   fi
 done
 
