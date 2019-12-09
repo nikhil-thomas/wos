@@ -30,6 +30,7 @@ while true; do
     echo ""
     echo "-------------------------------"
     beep&
+    sleep 1
   fi
   if [[ $(egrep '(25:00|55:00)$' <(echo $time_min)) ]]; then
   #if [[ $(egrep '(25:00|55:00)$' <(echo $time_min)) ]]; then
@@ -38,7 +39,7 @@ while true; do
     beep&
     wmctrl -s 2
     gedit /home/ncoder/.local/share/notes@maestroschan.fr/0_text &
-    echo $pid
+    sleep 1
   fi
 done
 
