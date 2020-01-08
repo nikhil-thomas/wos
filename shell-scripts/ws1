@@ -26,6 +26,10 @@ wmctrl -s 3
 google-chrome --app=https://www.evernote.com/Home.action?login=true#b=eee50092-a06a-4128-bea7-e2926ed7e176&ses=4&sh=1&sds=5& > /dev/null 2>&1 &
 sleep 3
 
+wmctrl -s 2
+google-chrome --app=https://docs.google.com/spreadsheets/d/1DvDYzkVKZx8G46sGfJQnGSSGKzeRjIC1IYSqzIyvT-0/edit?usp=sharing > /dev/null 2>&1 &
+sleep 3
+
 wmctrl -s 8
 google-chrome --app=https://learning.oreilly.com/home/ > /dev/null 2>&1 &
 sleep 3
