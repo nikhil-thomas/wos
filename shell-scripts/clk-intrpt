@@ -8,7 +8,11 @@ function beep() {
     tput bel
     sleep 0.225
   done
-  #wmctrl -s $switchToWindow
+}
+
+function lock_screen() {
+  sleep 20
+  gnome-screensaver-command -l
 }
 
 clear
@@ -20,33 +24,23 @@ while true; do
 
   sleep 0.5
   time_val=$(date)
-  #printf "\\r$time_val"
   echo -ne "\\r$time_val"
 
   time_min=$(echo $time_val | cut -d' ' -f 5)
   time_min=${time_min:3:5}
-  #echo $time_min
   if [[ $(egrep '(00:00|30:00)$' <(echo $time_min)) ]]; then
-  #if [[ $(egrep '(25:00|55:00)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
     beep 12 &
     sleep 1
   fi
-  if [[ $(egrep '(25:00)$' <(echo $time_min)) ]]; then
-  #if [[ $(egrep '(25:00|55:00)$' <(echo $time_min)) ]]; then
-    echo ""
-    echo "-------------------------------"
-    beep 4 &
-    sleep 1
-  fi
-  if [[ $(egrep '(55:00)$' <(echo $time_min)) ]]; then
-  #if [[ $(egrep '(25:00|55:00)$' <(echo $time_min)) ]]; then
+  if [[ $(egrep '(25:00|55:00)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
     wmctrl -s 2
     gedit /home/ncoder/.local/share/notes@maestroschan.fr/0_text &
     beep 20 &
+    lock_screen &
     sleep 1
   fi
 done
