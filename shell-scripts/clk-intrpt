@@ -28,13 +28,13 @@ while true; do
 
   time_min=$(echo $time_val | cut -d' ' -f 5)
   time_min=${time_min:3:5}
-  if [[ $(egrep '(00:00|30:00)$' <(echo $time_min)) ]]; then
+  if [[ $(egrep '(59:00|29:00)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
     beep 12 &
     sleep 1
   fi
-  if [[ $(egrep '(25:00|55:00)$' <(echo $time_min)) ]]; then
+  if [[ $(egrep '(24:00|54:00)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
     wmctrl -s 2
