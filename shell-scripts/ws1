@@ -12,6 +12,7 @@ wmctrl -s 11
 slack > /dev/null 2>&1 &
 sleep 3
 google-chrome --app=https://open.spotify.com/ > /dev/null 2>&1 &
+google-chrome --app=https://www.youtube.com/user/Computerphile/playlists  > /dev/null 2>&1 &
 sleep 3
 
 wmctrl -s 10
