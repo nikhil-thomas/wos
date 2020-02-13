@@ -48,6 +48,10 @@ func main() {
 			"kind": "Deployment",
 			"metadata": map[string]interface{}{
 				"name": "demo-deployment",
+				//"labels": map[string]interface{}{
+				//	"app": "deploy-test",
+				//	"label2": "2134",
+				//},
 			},
 			"spec": map[string]interface{}{
 				"replicas": 2,
@@ -136,6 +140,51 @@ func main() {
 		fmt.Printf(" * %s (%d replicas)\n", d.GetName(), replicas)
 	}
 	prompt()
+
+	fmt.Println("Labels")
+
+	retryErr = retry.RetryOnConflict(retry.DefaultRetry, func() error {
+		result, getErr := client.Resource(deploymentRes).Namespace(namespace).Get("demo-deployment", metav1.GetOptions{})
+		if getErr != nil {
+			panic(fmt.Errorf("failed to get latest version of Deployment: %v", getErr))
+		}
+
+		labels, found, err := unstructured.NestedMap(result.Object, "metadata", "labels")
+		if err != nil{
+			panic(fmt.Errorf("deployment labels find error in spec: %v", err))
+		}
+		fmt.Println("Found", found)
+		fmt.Printf("%+v\n", labels)
+		if labels == nil {
+			labels = map[string]interface{}{}
+		}
+		labels["new-label"] = "true"
+		err = unstructured.SetNestedMap(result.Object, labels, "metadata", "labels")
+		if err != nil{
+			panic(fmt.Errorf("deployment labels set error in spec: %v", err))
+		}
+		labels, found, err = unstructured.NestedMap(result.Object, "metadata", "labels")
+		if err != nil{
+			panic(fmt.Errorf("deployment labels find error in spec: %v", err))
+		}
+		fmt.Println("Found", found)
+		fmt.Printf("%+v\n", labels)
+		//update containers[0] image
+		//if err := unstructured.SetNestedField(containers[0].(map[string]interface{}), "nginx:1.13", "image"); err != nil {
+		//	panic(err)
+		//}
+		//if err := unstructured.SetNestedField(result.Object, containers, "spec", "template", "spec", "containers"); err != nil {
+		//	panic(err)
+		//}
+		//_,updateErr := client.Resource(deploymentRes).Namespace(namespace).Update(result, metav1.UpdateOptions{})
+		return nil
+	})
+	if retryErr != nil {
+		panic(fmt.Errorf("update failed: %v", retryErr))
+	}
+
+	prompt()
+
 	fmt.Println("Deleting Deployment")
 	deletePolicy := metav1.DeletePropagationForeground
 	deleteOptions := &metav1.DeleteOptions{
