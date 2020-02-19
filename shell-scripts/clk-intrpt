@@ -11,7 +11,9 @@ function beep() {
 }
 
 function lock_screen() {
-  sleep 40
+  sleep 20
+  wmctrl -s 5
+  sleep 20
   gnome-screensaver-command -l
 }
 

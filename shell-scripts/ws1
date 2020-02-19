@@ -5,8 +5,8 @@ session=wos
 wmctrl -s 5
 google-chrome --app=https://my.1password.com/home > /dev/null 2>&1 &
 sleep 3
-#/home/ncoder/.Nozbe/Nozbe > /dev/null 2>&1 &
-google-chrome --app=https://app.nozbe.com/#na/infobar > /dev/null 2>&1 &
+/home/ncoder/.Nozbe/Nozbe > /dev/null 2>&1 &
+#google-chrome --app=https://app.nozbe.com/#na/infobar > /dev/null 2>&1 &
 sleep 3
 
 wmctrl -s 11
