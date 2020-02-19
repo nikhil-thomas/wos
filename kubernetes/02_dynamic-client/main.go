@@ -185,12 +185,37 @@ func main() {
 
 	prompt()
 
+	retryErr = retry.RetryOnConflict(retry.DefaultRetry, func() error {
+		result, getErr := client.Resource(deploymentRes).Namespace(namespace).Get("demo-deployment", metav1.GetOptions{})
+		if getErr != nil {
+			panic(fmt.Errorf("failed to get latest version of Deployment: %v", getErr))
+		}
+
+		copyDeployment := result.DeepCopy()
+		copyDeployment.SetName("demo-deployment-copy")
+		unstructured.RemoveNestedField(copyDeployment.Object, "metadata", "resourceVersion")
+
+		_, err = client.Resource(deploymentRes).Namespace(namespace).Create(copyDeployment, metav1.CreateOptions{})
+		if err != nil {
+			panic(err)
+		}
+		return nil
+	})
+	if retryErr != nil {
+		panic(fmt.Errorf("update failed: %v", retryErr))
+	}
+
+	prompt()
+
 	fmt.Println("Deleting Deployment")
 	deletePolicy := metav1.DeletePropagationForeground
 	deleteOptions := &metav1.DeleteOptions{
 		PropagationPolicy:  &deletePolicy,
 	}
 	if err := client.Resource(deploymentRes).Namespace(namespace).Delete("demo-deployment", deleteOptions); err != nil {
+		panic(err)
+	}
+	if err := client.Resource(deploymentRes).Namespace(namespace).Delete("demo-deployment-copy", deleteOptions); err != nil {
 		panic(err)
 	}
 	fmt.Println("Deleted deployment")
