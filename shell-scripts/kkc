@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+kkc="kind get kubeconfig"
+
+if [[ -n $1 ]]; then
+  kkc="${kkc} --name ${1}"
+fi
+echo $kkc
+${kkc} > kind-con
+if [[ $? -ne 0 ]]; then
+  echo ":::::----------:::::"
+  echo "usage:"
+  echo "kkc <kind cluster name (optional)>"
+  echo ":::::----------:::::"
+fi
+export KUBECONFIG=$(pwd)/kind-con
+echo $KUBECONFIG
+
