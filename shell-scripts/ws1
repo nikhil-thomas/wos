@@ -14,8 +14,8 @@ google-chrome --app="https://mail.google.com/mail/u/1/" > /dev/null 2>&1 &
 sleep 4
 
 wmctrl -s 11
-slack > /dev/null 2>&1 &
-sleep 4
+#slack > /dev/null 2>&1 &
+#sleep 4
 google-chrome --app="https://open.spotify.com/" > /dev/null 2>&1 &
 sleep 4
 google-chrome --app="https://www.youtube.com/user/Computerphile/playlists"  > /dev/null 2>&1 &

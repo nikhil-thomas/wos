@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+arr=(
+  "find joy; happiness is not the goal but the precondition."
+  "my core value: learning."
+  "people buy what i feel about what i sell, not what i sell."
+  "float wrist while typing. Do no rest wrists on keyboard or on the table"
+)
+
+for (( i=0;i<10;i++ )); do
+  echo ${i}: ${arr[$i]}
+  echo ""
+  sleep 2
+done
+~/not-in-path-bin/slack > /dev/null 2>&1 &
+
