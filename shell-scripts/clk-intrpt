@@ -11,7 +11,7 @@ function beep() {
 }
 
 function lock_screen() {
-  lockAfter=${3:-15}
+  lockAfter=${1:-2}
   sleep $lockAfter
   #wmctrl -s 5
   #sleep 20
