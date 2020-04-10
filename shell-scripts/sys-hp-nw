@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+symbols=('~' '!' '@' '#' '$' '%' '^' '&' '*' '(' ')' '-' '_' '=' '+')
+symbols=('=')
+symbols=('-' '+' '=' '#')
+index=0
+
+nextIndex() {
+  r=$RANDOM
+  len=${#symbols[@]}
+  index=$(( r % len ))
+}
+#for((i=0;i<1000;i++))do
+for((;;));do
+  sleep 0.04
+  nextIndex arr
+  c=${symbols[$index]}
+  [[ $c = '*' ]] && echo -n '*' && continue
+  echo  -n $c
+done;
+
