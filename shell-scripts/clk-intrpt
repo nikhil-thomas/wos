@@ -44,6 +44,13 @@ while true; do
     beep 12 &
     sleep 1
   fi
+  if [[ $(egrep '(53:50|23:50)$' <(echo $time_min)) ]]; then
+    echo ""
+    echo "-------------------------------"
+    beep 4 &
+    sleep 1
+  fi
+
   if [[ $(egrep '(24:00|54:00)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
