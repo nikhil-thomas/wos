@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+
+switchToWindow=4
+
+function beep() {
+  beeps=${1:-5}
+  for (( i=0; i<$beeps; i++ )); do
+    tput bel
+    sleep 0.225
+  done
+}
+
+function lock_screen() {
+  lockAfter=${1:-2}
+  sleep $lockAfter
+  #wmctrl -s 5
+  #sleep 20
+  gnome-screensaver-command -l
+}
+
+function show_stash() {
+  [[ $(wc -c < /home/ncoder/.local/share/notes@maestroschan.fr/0_text) != 0 ]] && \
+  wmctrl -s 1 && \
+  gedit /home/ncoder/.local/share/notes@maestroschan.fr/0_text
+}
+
+function break_progress() {
+  for ((i=0;i<6;i++)); do
+    sleep 10
+    beep 2 &
+  done;
+}
+
+clear
+echo "###############################"
+echo "#### Starting intrpt timer ####"
+echo "###############################"
+
+while true; do
+
+  sleep 0.5
+  time_val=$(date)
+  echo -ne "\\r$time_val"
+
+  time_min=$(echo $time_val | cut -d' ' -f 5)
+  time_min=${time_min:3:5}
+  if [[ $(egrep '(14:00|29:00|44:00|59:00)$' <(echo $time_min)) ]]; then
+    echo ""
+    echo "-------------------------------"
+    show_stash &
+    beep 12 &
+    sleep 1
+  fi
+  if [[ $(egrep '(12:50|27:50|42:50|57:50)$' <(echo $time_min)) ]]; then
+    echo ""
+    echo "-------------------------------"
+    beep 4 &
+    break_progress &
+    sleep 1
+  fi
+  if [[ $(egrep '(13:00|28:00|43:00|58:00)$' <(echo $time_min)) ]]; then
+    echo ""
+    echo "-------------------------------"
+    show_stash &
+    beep 20 &
+    lock_screen &
+    sleep 1
+  fi
+done
+
