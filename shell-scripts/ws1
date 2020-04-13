@@ -39,7 +39,7 @@ google-chrome --app="https://learning.oreilly.com/home/" > /dev/null 2>&1 &
 sleep 4
 
 tmux start-server
-tmux new-session -d -s $session -c ~ -n sigint 'clk-intrpt'
+tmux new-session -d -s $session -c ~ -n sigint 'clk15'
 tmux new-window -c /home/ncoder/02_wos/jupyter-lab -n juptyr './run.sh'
 sleep 4
 wmctrl -s 0
