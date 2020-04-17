@@ -35,6 +35,17 @@ clear
 echo "###############################"
 echo "#### Starting intrpt timer ####"
 echo "###############################"
+echo ""
+echo "Balance is timing, not intensity.
+
+It is not doing multiple tasks at 80%, but developing the skill of turning it on and turning it off.
+
+Sleep fully, then work intensely. Focus deeply, then relax completely. Give each phase your full attention.
+
+Balance is 'when to' not 'how to.'"
+
+echo ""
+echo "###############################"
 
 while true; do
 
@@ -64,8 +75,10 @@ while true; do
     lock_screen &
     sleep 1
   fi
-  if [[ $(egrep '(5:00|0:00)$' <(echo $time_min)) ]]; then
-    beep 1
+  if [[ $(egrep '([0-5]5:00|[0-5]0:00)$' <(echo $time_min)) ]]; then
+    echo ""
+    echo "-------------------------------"
+    beep 8
     sleep 1
   fi
 
