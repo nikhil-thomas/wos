@@ -25,10 +25,17 @@ function show_stash() {
 }
 
 function break_progress() {
-  for ((i=0;i<6;i++)); do
+  breakSeconds=${1:-60}
+  for ((i=0;i<$breakSeconds;i+=10)); do
     sleep 10
     beep 2 &
   done;
+}
+
+function onoff() {
+  local message="Balance Skill: Turn it off"
+  [[ $1 == on ]] && local message="Balance Skill: Turn it on"
+  espeak -p 50 -s 120 -a 1000 "$message"
 }
 
 clear
@@ -60,18 +67,20 @@ while true; do
     echo "-------------------------------"
     show_stash &
     beep 12 &
+    onoff on
     sleep 1
   fi
-  if [[ $(egrep '(12:50|27:50|42:50|57:50)$' <(echo $time_min)) ]]; then
+  if [[ $(egrep '(11:50|26:50|41:50|56:50)$' <(echo $time_min)) ]]; then
     beep 4 &
+    onoff
     sleep 1
   fi
-  if [[ $(egrep '(13:00|28:00|43:00|58:00)$' <(echo $time_min)) ]]; then
+  if [[ $(egrep '(12:00|27:00|42:00|57:00)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
     show_stash &
     beep 20 &
-    break_progress &
+    break_progress 120 &
     lock_screen &
     sleep 1
   fi
