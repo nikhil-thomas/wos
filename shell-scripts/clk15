@@ -35,24 +35,28 @@ function break_progress() {
 function onoff() {
   local message="Balance Skill: Turn it off"
   [[ $1 == on ]] && local message="Balance Skill: Turn it on"
-  espeak -p 50 -s 120 -a 1000 "$message"
+  espeak -p 50 -s 120 -a 25 "$message"
+}
+
+function balance() {
+  echo "###############################"
+  echo "#### Starting intrpt timer ####"
+  echo "###############################"
+  echo ""
+  echo "Balance is timing, not intensity.
+
+  It is not doing multiple tasks at 80%, but developing the skill of turning it on and turning it off.
+
+  Sleep fully, then work intensely. Focus deeply, then relax completely. Give each phase your full attention.
+
+  Balance is 'when to' not 'how to.'"
+
+echo ""
+echo "###############################"
 }
 
 clear
-echo "###############################"
-echo "#### Starting intrpt timer ####"
-echo "###############################"
-echo ""
-echo "Balance is timing, not intensity.
-
-It is not doing multiple tasks at 80%, but developing the skill of turning it on and turning it off.
-
-Sleep fully, then work intensely. Focus deeply, then relax completely. Give each phase your full attention.
-
-Balance is 'when to' not 'how to.'"
-
-echo ""
-echo "###############################"
+balance
 
 while true; do
 
@@ -64,6 +68,7 @@ while true; do
   time_min=${time_min:3:5}
   if [[ $(egrep '(14:00|29:00|44:00|59:00)$' <(echo $time_min)) ]]; then
     echo ""
+    balance
     echo "-------------------------------"
     show_stash &
     beep 12 &
