@@ -35,7 +35,7 @@ function break_progress() {
 function onoff() {
   local message="Balance Skill: Turn it off"
   [[ $1 == on ]] && local message="Balance Skill: Turn it on"
-  espeak -p 50 -s 120 -a 25 "$message"
+  espeak -p 50 -s 120 -a 50 "$message"
 }
 
 function balance() {
