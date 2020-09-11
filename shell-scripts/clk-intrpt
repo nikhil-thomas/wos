@@ -2,6 +2,13 @@
 
 switchToWindow=4
 
+function onoff() {
+ local messagePrefix="Balance Mastery: Stick to the calendar:"
+ local message="${messagePrefix} Turn it off"
+ [[ $1 == on ]] && local message="${messagePrefix} Turn it on"
+ espeak -p 50 -s 120 -a 250 "$message"
+}
+
 function beep() {
   beeps=${1:-5}
   for (( i=0; i<$beeps; i++ )); do
@@ -40,20 +47,23 @@ while true; do
   if [[ $(egrep '(59:00|29:00)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
+    onoff on &
     show_stash &
     beep 12 &
     sleep 1
   fi
-  if [[ $(egrep '(53:50|23:50)$' <(echo $time_min)) ]]; then
+  if [[ $(egrep '(53:00|23:00)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
-    beep 4 &
+    onoff &
+    beep 8 &
     sleep 1
   fi
   if [[ $(egrep '(24:30|25:00|25:30|26:00|26:30|27:00|27:30|28:00|28:30|54:30|55:00|55:30|56:00|56:30|57:00|57:30|58:00|58:30)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
     beep 4 &
+    lock_screen &
     sleep 1
   fi
 
