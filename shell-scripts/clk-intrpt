@@ -5,7 +5,7 @@ switchToWindow=4
 function onoff() {
  local messagePrefix="Balance Mastery: Stick to the calendar:"
  local message="${messagePrefix} Turn it off"
- [[ $1 == on ]] && local message="${messagePrefix} Turn it on"
+ [[ $1 == "on" ]] && local message="${messagePrefix} Turn it on"
  espeak -p 50 -s 120 -a 250 "$message"
 }
 
@@ -47,7 +47,7 @@ while true; do
   if [[ $(egrep '(59:00|29:00)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
-    onoff on &
+    onoff on 
     show_stash &
     beep 12 &
     sleep 1
@@ -55,7 +55,7 @@ while true; do
   if [[ $(egrep '(53:00|23:00)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
-    onoff &
+    onoff
     beep 8 &
     sleep 1
   fi
