@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 switchToWindow=4
+wait_file=${HOME}/pause-clk-intrpt
 
 function onoff() {
  local messagePrefix="Balance Mastery: Stick to the calendar:"
@@ -31,14 +32,37 @@ function show_stash() {
   gedit /home/ncoder/.local/share/notes@maestroschan.fr/0_text
 }
 
+function pause() {
+  date >> ${wait_file}
+  echo 'clk-intrpt paused'
+}
+
+function resume() {
+  [[ -f ${wait_file} ]] && rm ${wait_file}
+  echo 'clk-intrpt paused removed'
+}
+
+echo $1
+if [[ "${1}" = "pause" ]]; then
+  pause
+  exit 0
+fi
+if [[ "${1}" = "resume" ]]; then
+  resume
+  exit 0
+fi
+
 clear
 echo "###############################"
 echo "#### Starting intrpt timer ####"
 echo "###############################"
 
 while true; do
-
   sleep 0.5
+  if [[ -f ${wait_file} ]]; then
+    continue
+  fi
+
   time_val=$(date)
   echo -ne "\\r$time_val"
 
