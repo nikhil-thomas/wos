@@ -72,7 +72,7 @@ while true; do
     echo ""
     echo "-------------------------------"
     onoff on 
-    show_stash &
+    #show_stash &
     beep 12 &
     sleep 1
   fi
@@ -94,7 +94,7 @@ while true; do
   if [[ $(egrep '(24:00|54:00)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
-    show_stash &
+    #show_stash &
     beep 20 &
     lock_screen &
     sleep 1
