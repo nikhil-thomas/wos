@@ -66,7 +66,7 @@ while true; do
   time_val=$(date)
   echo -ne "\\r$time_val"
 
-  time_min=$(echo $time_val | cut -d' ' -f 5)
+  time_min=$(echo $time_val | cut -d' ' -f 4)
   time_min=${time_min:3:5}
   if [[ $(egrep '(59:00|29:00)$' <(echo $time_min)) ]]; then
     echo ""
