@@ -42,6 +42,14 @@ function resume() {
   echo 'clk-intrpt paused removed'
 }
 
+function skip_break() {
+  echo 'skipping break'
+  pause
+  echo 'wait for 5min30s'
+  sleep 330
+  resume
+}
+
 echo $1
 if [[ "${1}" = "pause" ]]; then
   pause
@@ -51,6 +59,11 @@ if [[ "${1}" = "resume" ]]; then
   resume
   exit 0
 fi
+if [[ "${1}" = "skip" ]]; then
+  skip_break
+  exit 0
+fi
+
 
 clear
 echo "###############################"
