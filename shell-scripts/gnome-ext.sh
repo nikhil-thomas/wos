@@ -19,5 +19,6 @@ mkdir -p ${GNOME_EXT_PATH}
 
 unzip -q ${EXT_PATH} -d $GNOME_EXT_PATH
 
-gnome-shell-extension-tool -e ${EXT_UUID}
+#gnome-shell-extension-tool -e ${EXT_UUID}A
+gnome-extensions -e ${EXT_UUID}A
 

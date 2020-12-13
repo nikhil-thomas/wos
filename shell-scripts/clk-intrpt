@@ -86,8 +86,8 @@ while true; do
     echo "-------------------------------"
     onoff on 
     #show_stash &
-    beep 12 &
-    loginctl unlock-session &
+    loginctl unlock-session
+    beep 4
     sleep 1
   fi
   if [[ $(egrep '(53:00|23:00)$' <(echo $time_min)) ]]; then
