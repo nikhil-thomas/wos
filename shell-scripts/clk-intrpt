@@ -43,10 +43,11 @@ function resume() {
 }
 
 function skip_break() {
+  duration=${1:-330}
   echo 'skipping break'
   pause
-  echo 'wait for 5min30s'
-  sleep 330
+  echo "wait for ${duration}s"
+  sleep ${duration}
   resume
 }
 
@@ -60,7 +61,8 @@ if [[ "${1}" = "resume" ]]; then
   exit 0
 fi
 if [[ "${1}" = "skip" ]]; then
-  skip_break
+  shift
+  skip_break ${1}
   exit 0
 fi
 
