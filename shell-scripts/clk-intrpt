@@ -7,7 +7,8 @@ function onoff() {
  local messagePrefix="Balance Mastery: Stick to the calendar:"
  local message="${messagePrefix} Turn it off"
  [[ $1 == "on" ]] && local message="${messagePrefix} Turn it on"
- espeak -p 50 -s 120 -a 250 "$message"
+ #espeak -p 50 -s 120 -a 250 "$message"
+ say -v Daniel "[[volm 0.5]] $message"
 }
 
 function beep() {
@@ -23,7 +24,8 @@ function lock_screen() {
   sleep $lockAfter
   #wmctrl -s 5
   #sleep 20
-  gnome-screensaver-command -l
+  #gnome-screensaver-command -l
+  open -a ScreenSaverEngine
 }
 
 function show_stash() {
@@ -98,7 +100,8 @@ while true; do
     echo "-------------------------------"
     onoff on 
     #show_stash &
-    loginctl unlock-session
+    #loginctl unlock-session
+    killall ScreenSaverEngine
     beep 4
     sleep 1
   fi
