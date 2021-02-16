@@ -25,7 +25,9 @@ function lock_screen() {
   #wmctrl -s 5
   #sleep 20
   #gnome-screensaver-command -l
-  open -a ScreenSaverEngine
+  #killall ScreenSaverEngine
+  #open -a ScreenSaverEngine
+  osascript mac-lock.scpt
 }
 
 function show_stash() {
@@ -63,21 +65,29 @@ function skip_break() {
   resume
 }
 
-echo $1
-if [[ "${1}" = "pause" ]]; then
-  pause
-  exit 0
-fi
-if [[ "${1}" = "resume" ]]; then
-  resume
-  exit 0
-fi
-if [[ "${1}" = "skip" ]]; then
-  shift
-  skip_break ${1}
-  exit 0
-fi
-
+case ${1} in
+    "pause")
+	pause
+	exit 0
+	;;
+    "resume")
+	resume
+	exit 0
+        ;;
+    "skip")
+	shift
+	skip_break ${1}
+	exit 0
+        ;;
+    "dev")
+	lock_screen
+	exit 0
+#	say dev
+#	osascript mac-lock.scpt
+        ;;
+#    *)
+#	;;
+esac
 
 clear
 echo "###############################"
