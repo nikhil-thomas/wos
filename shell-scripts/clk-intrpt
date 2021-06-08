@@ -3,12 +3,25 @@
 switchToWindow=4
 wait_file=${HOME}/pause-clk-intrpt
 
+function speak() {
+  message="$*"
+  if [[ $OSTYPE == "darwin"* ]]; then
+    say -v Daniel "[[volm 0.5]] $message"
+  elif [[ $OSTYPE == "linux"* ]]; then
+    espeak -p 50 -s 120 -a 250 "$message"
+  fi
+}
+
+function smile() {
+# speak “Smile. It increases your face value.”
+  speak “Smile”
+}
+
 function onoff() {
- local messagePrefix="Balance Mastery: Stick to the calendar:"
+ local messagePrefix="$(date +'%H hours, %M minutes'): Switch context now or lose day mastery, control, productivity and wealth."
  local message="${messagePrefix} Turn it off"
  [[ $1 == "on" ]] && local message="${messagePrefix} Turn it on"
- #espeak -p 50 -s 120 -a 250 "$message"
- say -v Daniel "[[volm 0.5]] $message"
+ speak "$message"
 }
 
 function beep() {
@@ -22,12 +35,11 @@ function beep() {
 function lock_screen() {
   lockAfter=${1:-2}
   sleep $lockAfter
-  #wmctrl -s 5
-  #sleep 20
-  #gnome-screensaver-command -l
-  #killall ScreenSaverEngine
-  #open -a ScreenSaverEngine
-  osascript mac-lock.scpt
+  if [[ $OSTYPE == "darwin"* ]]; then
+    osascript mac-lock.scpt
+  elif [[ $OSTYPE == "linux"* ]]; then
+    xdg-screensaver lock
+  fi
 }
 
 function show_stash() {
@@ -110,33 +122,37 @@ while true; do
     echo "-------------------------------"
     onoff on 
     #show_stash &
-    #loginctl unlock-session
-    killall ScreenSaverEngine
+    if [[ $OSTYPE == "darwin"* ]]; then
+      killall ScreenSaverEngine
+    elif [[ $OSTYPE == "linux"* ]]; then
+     loginctl unlock-session
+    fi
     beep 4
     sleep 1
-  fi
-  if [[ $(egrep '(55:00|25:00)$' <(echo $time_min)) ]]; then
+  elif [[ $(egrep '(55:00|25:00)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
     onoff
     beep 8 &
     sleep 1
-  fi
-  if [[ $(egrep '(26:30|27:00|27:30|28:00|28:30|56:30|57:00|57:30|58:00|58:30)$' <(echo $time_min)) ]]; then
+  elif [[ $(egrep '(26:30|27:00|27:30|28:00|28:30|56:30|57:00|57:30|58:00|58:30)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
     beep 4 &
+    onoff
     lock_screen &
     sleep 1
-  fi
-
-  if [[ $(egrep '(26:00|56:00)$' <(echo $time_min)) ]]; then
+    smile
+  elif [[ $(egrep '(26:00|56:00)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
     #show_stash &
     beep 20 &
     lock_screen &
     sleep 1
+  elif [[ $(egrep '00$' <(echo $time_min)) ]]; then
+    smile
   fi
 done
 
+BB
