@@ -129,9 +129,16 @@ while true; do
     fi
     beep 4
     sleep 1
+  elif [[ $(egrep '(54:00|24:00)$' <(echo $time_min)) ]]; then
+    echo ""
+    echo "-------------------------------"
+    speak "59 seconds to timeout"
+    beep 8 &
+    sleep 1
   elif [[ $(egrep '(55:00|25:00)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
+    speak "save context in stack, update scheduler."
     onoff
     beep 8 &
     sleep 1
