@@ -2,6 +2,7 @@
 
 switchToWindow=4
 wait_file=${HOME}/pause-clk-intrpt
+brand_prefix="Competence Branding"
 
 function speak() {
   message="$*"
@@ -14,11 +15,11 @@ function speak() {
 
 function smile() {
 # speak “Smile. It increases your face value.”
-  speak “Smile”
+  speak “Competence Smile”
 }
 
 function onoff() {
- local messagePrefix="$(date +'%H hours, %M minutes'): Switch context now or lose day mastery, control, productivity and wealth."
+ local messagePrefix="$(date +'%H hours, %M minutes'): Switch context now. Reinforce Competence Brand story."
  local message="${messagePrefix} Turn it off"
  [[ $1 == "on" ]] && local message="${messagePrefix} Turn it on"
  speak "$message"
@@ -129,20 +130,20 @@ while true; do
     fi
     beep 4
     sleep 1
-  elif [[ $(egrep '(54:00|24:00)$' <(echo $time_min)) ]]; then
+  elif [[ $(egrep '(52:00|22:00)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
-    speak "59 seconds to timeout"
+    speak "${brand_prefix}. 59 seconds to context switch"
     beep 8 &
     sleep 1
-  elif [[ $(egrep '(55:00|25:00)$' <(echo $time_min)) ]]; then
+  elif [[ $(egrep '(53:00|23:00)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
-    speak "save context in stack, update scheduler."
+    speak "${brand_prefix}. save context in stack, update scheduler. timeout in 59 seconds"
     onoff
     beep 8 &
     sleep 1
-  elif [[ $(egrep '(26:30|27:00|27:30|28:00|28:30|56:30|57:00|57:30|58:00|58:30)$' <(echo $time_min)) ]]; then
+  elif [[ $(egrep '(25:30|26:00|26:30|27:00|27:30|28:00|28:30|55:30|56:00|56:30|57:00|57:30|58:00|58:30)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
     beep 4 &
@@ -150,7 +151,7 @@ while true; do
     lock_screen &
     sleep 1
     smile
-  elif [[ $(egrep '(26:00|56:00)$' <(echo $time_min)) ]]; then
+  elif [[ $(egrep '(24:00|54:00)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
     #show_stash &
