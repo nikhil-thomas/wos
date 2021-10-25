@@ -3,5 +3,5 @@
 
 INSTALL_CONFIG=${2}
 NEW_CLUSTER_NAME=${1}
-sed 's/^[[:space:]]*name: nikthoma-.*-.*/  name: '${NEW_CLUSTER_NAME}'/' ${INSTALL_CONFIG}
+sed 's/^[[:space:]]*name: nikthoma.*/  name: '${NEW_CLUSTER_NAME}'/' ${INSTALL_CONFIG}
 
