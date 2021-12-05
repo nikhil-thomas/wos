@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-  time_val=$(date)                                                               
-  echo -ne "\\r$time_val"                                                        
-                                                                                  
-  time_min=$(echo $time_val | cut -d' ' -f 5)                                    
-  time_min=${time_min:3:5}                                                       
-echo $time_min
-grep '10' <(echo $time_min)                                      
-echo end 
+sleep 100 &
+sleep 40&
+/Users/nikhilthomas/Applications/Chrome\ Apps.localized/Home\ -\ Netflix.app/Contents/MacOS/app_mode_loader &>/dev/null &
+
+pid=$(jobs -p | tail -n 1)
+sleep 5
+kill -15 $pid
+echo end
