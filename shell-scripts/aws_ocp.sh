@@ -6,6 +6,8 @@ echo input-install-config=${install_config_path}
 echo cluster_number=${cluster_number}
 if [[ ! -f ${install_config_path} ]]; then
   echo 'install-config not found'
+  echo usage:
+  echo '     aws_ocp <path to existing install-config.yaml> [cluster serial number]'
   exit 1
 fi
 
