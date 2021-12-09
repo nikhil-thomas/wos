@@ -151,6 +151,12 @@ while true; do
     fi
     beep 4
     sleep 1
+  elif [[ $(egrep '(37:30|12:30)$' <(echo $time_min)) ]]; then
+    echo ""
+    echo "-------------------------------"
+    speak "${brand_prefix}. Slice Midpoint, 12 minutes 30 seconds to context switch"
+    beep 8 &
+    sleep 1
   elif [[ $(egrep '(50:00|20:00)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
