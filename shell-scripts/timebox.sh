@@ -36,7 +36,14 @@ function slice() {
   lock_screen
 }
 
-/Users/nikhilthomas/Applications/Chrome\ Apps.localized/Home\ -\ Netflix.app/Contents/MacOS/app_mode_loader &>/dev/null &
+app='/Users/nikhilthomas/Applications/Chrome\ Apps.localized/Home\ -\ Netflix.app/Contents/MacOS/app_mode_loader'
+
+[[ ${1} == 'youtube' ]] && app='/Users/nikhilthomas/Applications/Chrome\ Apps.localized/YouTube.app/Contents/MacOS/app_mode_loader'
+
+echo $app
+
+bash -c "$app" &> /dev/null &
+
 pid=$(jobs -p | tail -n 1)
 
 slice
