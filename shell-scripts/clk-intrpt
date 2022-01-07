@@ -172,6 +172,8 @@ while true; do
   elif [[ $(egrep '(55:00|25:00)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
+    lock_screen
+    sleep 5
     speak "${brand_prefix}. save context in stack, update scheduler. timeout in 59 seconds"
     onoff
     beep 8 &
