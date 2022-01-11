@@ -21,7 +21,8 @@ function speak() {
 
 function slice() {
   count=0
-  while [[ $count -lt 300 ]]; do
+  local duration=${1:-240}
+  while [[ $count -lt ${duration} ]]; do
     sleep 10
     count=$((count + 10))
     echo $count
@@ -36,9 +37,30 @@ function slice() {
   lock_screen
 }
 
-app='/Users/nikhilthomas/Applications/Chrome\ Apps.localized/Home\ -\ Netflix.app/Contents/MacOS/app_mode_loader'
+case ${1} in
 
-[[ ${1} == 'youtube' ]] && app='/Users/nikhilthomas/Applications/Chrome\ Apps.localized/YouTube.app/Contents/MacOS/app_mode_loader'
+  youtube)
+    app='/Users/nikhilthomas/Applications/Chrome\ Apps.localized/YouTube.app/Contents/MacOS/app_mode_loader'
+    ;;
+
+  netflix)
+    app='/Users/nikhilthomas/Applications/Chrome\ Apps.localized/Home\ -\ Netflix.app/Contents/MacOS/app_mode_loader'
+    ;;
+
+
+  kindle|read)
+    app='/Applications/Kindle.app/Contents/MacOS/Kindle'
+    echo test
+    ;;
+
+#  PATTERN_N)
+#    STATEMENTS
+#    ;;
+
+  *)
+    app='/Applications/Kindle.app/Contents/MacOS/Kindle'
+    ;;
+esac
 
 echo $app
 
@@ -46,4 +68,5 @@ bash -c "$app" &> /dev/null &
 
 pid=$(jobs -p | tail -n 1)
 
-slice
+duration=${2:-240}
+slice $duration
