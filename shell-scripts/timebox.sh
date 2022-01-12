@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+APP_NAME=Kindle
+
 function lock_screen() {
   lockAfter=${1:-2}
   sleep $lockAfter
@@ -22,6 +24,7 @@ function speak() {
 function slice() {
   count=0
   local duration=${1:-240}
+  echo slice: $(( 60 + ${duration} ))
   while [[ $count -lt ${duration} ]]; do
     sleep 10
     count=$((count + 10))
@@ -33,22 +36,30 @@ function slice() {
   speak "${brand_prefix}. 10 seconds left"
   sleep 10
   speak "${brand_prefix}. end of slice"
-  kill -15 ${pid}
+  if [[ ${APP_NAME} == "Kindle" ]]; then
+    # make sure kindle state is saved
+    osascript -e 'quit app "Kindle"'
+  else
+    kill -15 ${pid}
+  fi
   lock_screen
 }
 
 case ${1} in
 
   youtube)
+    APP_NAME=Youtube
     app='/Users/nikhilthomas/Applications/Chrome\ Apps.localized/YouTube.app/Contents/MacOS/app_mode_loader'
     ;;
 
   netflix)
+    APP_NAME=Netflix
     app='/Users/nikhilthomas/Applications/Chrome\ Apps.localized/Home\ -\ Netflix.app/Contents/MacOS/app_mode_loader'
     ;;
 
 
   kindle|read)
+    APP_NAME=Kindle
     app='/Applications/Kindle.app/Contents/MacOS/Kindle'
     echo test
     ;;
@@ -62,11 +73,13 @@ case ${1} in
     ;;
 esac
 
-echo $app
 
 bash -c "$app" &> /dev/null &
 
 pid=$(jobs -p | tail -n 1)
+echo pid: $pid
+echo app: $APP_NAME
+echo command: $app
 
 duration=${2:-240}
 slice $duration
