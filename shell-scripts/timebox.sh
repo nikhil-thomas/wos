@@ -45,6 +45,38 @@ function slice() {
   lock_screen
 }
 
+function timebox() {
+  count= 0
+  local duration=${1:-300}
+  local recurring=${2:-false}
+  echo time remaining: ${duration}s
+  echo recurring: ${recurring}
+
+  while [[ ${count} -lt ${duration} ]]; do
+    sleep 10
+    count=$(( count + 10 ))
+    echo checkpoint: ${count}
+    speak "slice time"
+    if [[ ${count} == ${duration} ]] && [[ ${recurring} == true ]]; then
+      count=0
+      speak "end of timebox"
+      kill_app
+    fi
+  done
+  speak "end of timebox"
+  kill_app
+}
+
+function kill_app() {
+  if [[ ${APP_NAME} == "Kindle" ]]; then
+    # make sure kindle state is saved
+    osascript -e 'quit app "Kindle"'
+  else
+    kill -15 ${pid}
+  fi
+  lock_screen
+}
+
 case ${1} in
 
   youtube)
@@ -57,6 +89,10 @@ case ${1} in
     app='/Users/nikhilthomas/Applications/Chrome\ Apps.localized/Home\ -\ Netflix.app/Contents/MacOS/app_mode_loader'
     ;;
 
+  nop)
+    APP_NAME=Nop
+    app=''
+    ;;
 
   kindle|read)
     APP_NAME=Kindle
@@ -73,13 +109,16 @@ case ${1} in
     ;;
 esac
 
-
-bash -c "$app" &> /dev/null &
-
-pid=$(jobs -p | tail -n 1)
-echo pid: $pid
 echo app: $APP_NAME
-echo command: $app
+if [[ ${APP_NAME} != 'Nop' ]]; then
+  bash -c "$app" &> /dev/null &
+  pid=$(jobs -p | tail -n 1)
+  echo pid: $pid
+  echo command: $app
+fi
 
-duration=${2:-240}
-slice $duration
+duration=${2:-300}
+recurring=${3:-false}
+
+timebox ${duration} ${recurring}
+#slice $duration
