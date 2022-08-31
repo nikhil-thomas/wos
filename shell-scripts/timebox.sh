@@ -46,7 +46,7 @@ function slice() {
 }
 
 function timebox() {
-  count= 0
+  count=0
   local duration=${1:-300}
   local recurring=${2:-false}
   echo time remaining: ${duration}s
