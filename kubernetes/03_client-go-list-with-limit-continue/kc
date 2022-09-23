@@ -1,0 +1,18 @@
+apiVersion: v1
+clusters:
+- cluster:
+    server: https://api.sep22c1nikthoma.kci0.s1.devshift.org:6443
+  name: api-sep22c1nikthoma-kci0-s1-devshift-org:6443
+contexts:
+- context:
+    cluster: api-sep22c1nikthoma-kci0-s1-devshift-org:6443
+    namespace: default
+    user: nikhil-thomas/api-sep22c1nikthoma-kci0-s1-devshift-org:6443
+  name: default/api-sep22c1nikthoma-kci0-s1-devshift-org:6443/nikhil-thomas
+current-context: default/api-sep22c1nikthoma-kci0-s1-devshift-org:6443/nikhil-thomas
+kind: Config
+preferences: {}
+users:
+- name: nikhil-thomas/api-sep22c1nikthoma-kci0-s1-devshift-org:6443
+  user:
+    token: sha256~kPFb_AH8CJFcRudnpn3wLa63Cav0cWnr2KsuGhhVC4E
