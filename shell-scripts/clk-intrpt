@@ -166,7 +166,7 @@ while true; do
   elif [[ $(egrep '(54:00|24:00)$' <(echo $time_min)) ]]; then
     echo ""
     echo "-------------------------------"
-    speak "${brand_prefix}. 59 seconds to context switch"
+    speak "${brand_prefix}. Attention window finished. Buffer context in 59 seconds. Director is active. Director is allocating cognitive fuel."
     beep 8 &
     sleep 1
   elif [[ $(egrep '(55:00|25:00)$' <(echo $time_min)) ]]; then
