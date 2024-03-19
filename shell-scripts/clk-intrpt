@@ -196,7 +196,8 @@ while true; do
     lock_screen &
     sleep 1
   elif [[ $(egrep '00$' <(echo $time_min)) ]]; then
-    smile
+    # smile
+    :
   fi
 done
 
